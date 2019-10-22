@@ -1,16 +1,32 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { BrowserModule, By } from '@angular/platform-browser';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
+import { MatDatepickerModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 describe('AppComponent', () => {
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        BrowserModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatInputModule
       ],
       declarations: [
         AppComponent
       ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -32,4 +48,24 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Welcome to datepicker-input-check!');
   });
+
+  it('should format user valid input', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    fixture.detectChanges();
+
+    const compiled = fixture.debugElement.nativeElement;
+    fixture.whenStable().then(() => {
+      let input = fixture.debugElement.query(By.css('input'));
+      let el = input.nativeElement;
+      expect(el.value).toBe('');
+
+      el.value = '01022019';
+      el.dispatchEvent(new Event('blur'));
+      console.log(fixture.componentInstance.dateValue);
+      expect(fixture.componentInstance.dateValue).toBe('01 Feb 2019');
+    });
+  });
+
+
 });

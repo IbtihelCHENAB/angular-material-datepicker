@@ -1,7 +1,7 @@
-
+<h1>Welcome to datepicker-input-check!</h1>
 <form #datePickerForm>
   <mat-form-field>
-    <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" #pickerInput [formControl]="date">
+    <input matInput [(ngModel)]="dateValue" [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" #pickerInput [formControl]="date" (blur)="formatDate($event)">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
     <mat-error *ngIf="date.invalid">{{getErrorMessage(pickerInput.value)}}</mat-error>

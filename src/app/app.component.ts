@@ -35,6 +35,8 @@ export class AppComponent {
      // Validators.pattern('^(0[1-9]|1\d|2\d|3[01])(0[1-9]|1[0-2])((19|20)\d{2}|\d{2})$')
     ]
   );
+
+  public dateValue: any;
   // minDate is the start of today.
   minDate = new Date(new Date().setHours(0, 0, 0, 0));
 
@@ -54,17 +56,8 @@ export class AppComponent {
     }
     return 'Unknown error';
   }
-}
 
-    /*if (date.length !== 10) {
-      return 'Invalid input: Please input a string in the form of YYYY-MM-DD';
-    } else {
-      const da = date.split('-');
-      if (da.length !== 3 || da[0].length !== 4 || da[1].length !== 2 || da[2].length !== 2) {
-        return 'Invalid input: Please input a string in the form of YYYY-MM-DD';
-      } else if (moment(date).isValid()) {
-        return 'Invalid date: Please input a date no later than today';
-      } else if (!moment(date).isValid()) {
-        return 'Invalid date: Please input a date with a valid month and date.';
-      }
-    }*/
+  formatDate($event:any) {
+    this.dateValue = moment($event.target.value, ['DDMMYYYY']).format('DD MMM YYYY');
+  }
+}
